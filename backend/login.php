@@ -20,7 +20,8 @@
             $account = mysqli_fetch_assoc($result);
 
             if (password_verify($password, $account["password"])) {
-                $_SESSION["user_id"] = $account["id"];
+                $_SESSION["account_id"] = $account["id"];
+                $_SESSION["account_role"] = $account["role"];
 
                 // $days = 30;
                 // $cookieExpiration = time() + 60 * 60 * 24 * $days;
@@ -39,28 +40,25 @@
 
                 http_response_code(200);
                 if ($account["role"] = "user") {
-                    echo json_encode([
+                    $response = [
                         "message" => "Login success",
                         "redirect" => "/"
-                    ]);
-                    exit;
+                    ];
                 }
             } else {
                 http_response_code(400);
-                echo json_encode([
-                    "status" => "error",
+                $response = [
                     "message" => "Password is incorrect."
-                ]);
-                exit;
+                ];
             }
         } else {
             http_response_code(400);
-            echo json_encode([
-                "status" => "error",
+            $response = [
                 "message" => "Account does not exists."
-            ]);
-            exit;
+            ];
         }
+
+        echo json_encode($response);
     }
 
 ?>

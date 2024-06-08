@@ -7,5 +7,92 @@
 </head>
 <body>
     <h1>Hello, World!</h1>
+    <fieldset>
+        <legend>Get Merches</legend>
+        <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="get">
+            <input type="submit" value="Get">
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Post Merches</legend>
+        <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="post" enctype="multipart/form-data">
+            <!-- <input type="hidden" name="method" value="post"> -->
+            <input type="text" name="name">
+            <input type="number" name="price">
+            <textarea name="description"></textarea>
+            <input type="number" name="stock">
+            <input type="file" name="image">
+            <select name="category">
+                <option value="bts">BTS</option>
+                <option value="blackpink">Blackpink</option>
+            </select>
+            <input type="submit" value="Post">
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Put Merches</legend>
+        <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="method" value="put">
+            <input type="number" name="id">
+            <input type="text" name="name">
+            <input type="number" name="price">
+            <textarea name="description"></textarea>
+            <input type="number" name="stock">
+            <input type="image" src="" alt="">
+            <input type="file" name="image">
+            <select name="category">
+                <option value="bts">BTS</option>
+                <option value="blackpink">Blackpink</option>
+            </select>
+            <input type="submit" value="Put">
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Delete Merches</legend>
+        <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="post" id="delete-form">
+            <input type="hidden" name="method" value="delete">
+            <input type="number" name="id" id="id-to-be-deleted">
+            <input type="submit" value="Delete">
+        </form>
+    </fieldset>
+    <!-- <script>
+        const deleteForm = document.getElementById("delete-form");
+        
+        deleteForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const idToBeDeleted = document.getElementById("id-to-be-deleted");
+
+            const url = `http://localhost:8080/hallyuin-native/backend/api/v1/merches.php/${idToBeDeleted.value}`;
+
+            const data = {
+                method: "DELETE",
+            };
+
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8",
+                },
+                body: JSON.stringify(),
+            };
+
+            fetch(url, options)
+            .then(response => {
+                alert(response);
+                console.log(response);
+                console.log(response.body);
+            })
+            // .then(response => response.json())
+            // .then(data => {
+            //     alert(data);
+            //     console.log(data);
+            // })
+            .catch(error => {
+                alert(error);
+                console.error(error);
+            });
+
+        });
+    </script> -->
 </body>
 </html>
