@@ -1,4 +1,5 @@
 <?php
+
     session_start();
     require_once "../../config.php";
 
@@ -18,7 +19,31 @@
     //     exit;
     // }
 
+    // GET (READ)
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        $id = $_GET["id"];
+        
+        if (isset($id) and is_int((int) $id)) {
+            $query = "SELECT * FROM `merches` WHERE `id` = '".$_GET["id"]."';";
+            $result = mysqli_query($connection, $query);
+            $data = mysqli_fetch_assoc($result);
+
+            if (empty($data)) {
+                http_response_code(400);
+                echo json_encode([
+                    "message" => "Merch does not exists."
+                ]);
+                exit;
+            }
+
+            http_response_code(200);
+            echo json_encode([
+                "message" => "Merch retrieved.",
+                "data" => $data
+            ]);
+            exit;
+        }
+
         $query = "SELECT * FROM `merches`;";
         $result = mysqli_query($connection, $query);
         $data = array();
@@ -29,18 +54,19 @@
 
         http_response_code(200);
         echo json_encode([
-            'data' => $data
+            "message" => "Merches retrieved.",
+            "data" => $data
         ]);
-
         exit;
     }
 
+    // DELETE
     if ($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET["method"])) {
         if ($_GET["method"] == "delete") {
 
             $id = $_GET["id"];
 
-            if (!empty($id) and is_int((int) $id)) {
+            if (isset($id) and is_int((int) $id)) {
                 $query = "DELETE FROM `merches` WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "i", $id);
@@ -75,6 +101,7 @@
         }
     }
 
+    // PUT (EDIT)
     if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["method"])) {
         if ($_POST["method"] = "put") {
             $id = $_POST["id"];
@@ -120,6 +147,7 @@
         }
     }
 
+    // POST (CREATE)
     if ($_SERVER["REQUEST_METHOD"] == "POST" and !isset($_POST["method"])) {
         $name = $_POST["name"];
         $price = $_POST["price"];
@@ -145,7 +173,6 @@
         }
 
         echo json_encode($response);
-
         exit;
     }
 

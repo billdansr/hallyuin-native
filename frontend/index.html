@@ -14,6 +14,13 @@
         </form>
     </fieldset>
     <fieldset>
+        <legend>Get Merch</legend>
+        <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="get">
+            <input type="number" name="id">
+            <input type="submit" value="Get">
+        </form>
+    </fieldset>
+    <fieldset>
         <legend>Post Merches</legend>
         <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="post" enctype="multipart/form-data">
             <!-- <input type="hidden" name="method" value="post"> -->
