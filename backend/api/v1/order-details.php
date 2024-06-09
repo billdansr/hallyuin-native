@@ -4,28 +4,28 @@
     require_once "../../config.php";
     include "../../auth.php";
 
-
-    // Get
+    // GET
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        $id = isset($_GET["id"]) ? $_GET["id"] : null;
+        $orderId = $_GET["order-id"];
+        $merchId = $_GET["merch-id"];
 
-        if (isset($id) && is_int((int) $id)) {
-            $query = "SELECT * FROM `orders` WHERE `id` = '".$id."';";
+        if ((isset($orderId) && is_int((int) $orderId)) && (isset($merchId) && is_int((int) $merchId))) {
+            $query = "SELECT * FROM `order_details` WHERE `order_id` = '".$orderId."' AND `merch_id` = '".$merchId."';";
             $result = mysqli_query($connection, $query);
 
-            if (mysqli_num_rows($result) > 0) {
+            if (mysqli_num_rows($result) === 1) {
                 $data = mysqli_fetch_assoc($result);
 
                 http_response_code(200);
                 echo json_encode([
-                    "message" => "Order retrieved.",
+                    "message" => "Order detail retrieved succcessfully.",
                     "data" => $data
                 ]);
                 exit;
             } else {
                 http_response_code(400);
                 echo json_encode([
-                    "message" => "Order not found."
+                    "message" => "Order detail not found."
                 ]);
                 exit;
             }
@@ -37,38 +37,34 @@
             exit;
         }
 
-        $query = "SELECT * FROM `orders`;";
+        $query = "SELECT * FROM `order_details`;";
         $result = mysqli_query($connection, $query);
-        $data = array();
-        
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
-        }
+        $data = mysqli_fetch_assoc($result);
 
         http_response_code(200);
         echo json_encode([
-            "message" => "Orders retrieved.",
+            "message" => "Order details retrieved successfully.",
             "data" => $data
         ]);
         exit;
     }
 
-    // Delete
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_POST["method"])) {
-        if ($_GET["method"] == "delete") {
-            $id = isset($_GET["id"]) ? $_GET["id"] : null;
+    // DELETE
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["method"])) {
+        if ($_GET["method"] == "DELETE") {
+            $orderId = $_GET["order-id"];
+            $merchId = $_GET["merch-id"];
 
-            if (isset($id) && is_int((int) $id)) {
-                $query = "DELETE FROM `orders` WHERE `id` = ?;";
+            if ((isset($orderId) && is_int((int) $orderId)) && (isset($merchId) && is_int((int) $merchId))) {
+                $query = "DELETE FROM `order_details` WHERE `order_id` = ? AND `merch_id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
-                mysqli_stmt_bind_param($statement, "i", $id);
+                mysqli_stmt_bind_param($statement, "ii", $orderId, $merchId);
 
                 if (mysqli_stmt_execute($statement)) {
                     http_response_code(200);
                     $response = [
-                        "message" => "Order deleted successfully."
+                        "message" => "Order detail deleted successfully."
                     ];
-                    exit;
                 } else {
                     http_response_code(400);
                     $response = [
@@ -83,31 +79,29 @@
             }
 
             echo json_encode($response);
-            exit;
         }
     }
 
-    // Put
+    // PUT
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["method"])) {
-        if ($_POST["method" == "put"]) {
-            $status = $_POST["status"];
-            $orderedDate = $_POST["ordered-date"];
-            $shippedDate = $_POST["shipped-date"];
-            $receivedDate = $_POST["received-date"];
+        if ($_POST["method"] == "put") {
+            $orderId = $_POST["order-id"];
+            $merchId = $_POST["merch-id"];
+            $quantityOrdered = $_POST["quantity-ordered"];
 
-            $query = "UPDATE `orders` SET `status` = ?, `orderDate` = ?, `shippedDate` = ?, `receivedDate` = ? WHERE `id` = ?;";
+            $query = "UPDATE `order_details` SET `quantity_ordered` = ? WHERE `order_id` = ? AND `merch_id` = ?;";
             $statement = mysqli_prepare($connection, $query);
-            mysqli_stmt_bind_param($statement, "ssssi", $status, $orderedDate, $shippedDate, $receivedDate);
+            mysqli_stmt_bind_param($statement, "iii", $quantityOrdered, $orderId, $merchId);
 
             if (mysqli_stmt_execute($statement)) {
                 http_response_code(200);
                 $response = [
-                    "message" => "Order updated successfully."
+                    "message" => "Order detail updated."
                 ];
             } else {
                 http_response_code(400);
                 $response = [
-                    "message" => "Order update failed."
+                    "message" => mysqli_stmt_error($statement)
                 ];
             }
 
@@ -115,22 +109,20 @@
         }
     }
 
-    // Post
+    // POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $accountId = $_POST["account-id"];
-        $status = $_POST["status"];
-        $orderedDate = $_POST["ordered-date"];
-        $shippedDate = $_POST["shipped-date"];
-        $receivedDate = $_POST["received-date"];
-
-        $query = "INSERT INTO `orders` (`account_id`, `status`, `ordered_date`, `shipped_date`, `received_date`) VALUES (?, ?, ?, ?, ?);";
+        $orderId = $_POST["order-id"];
+        $merchId = $_POST["merch-id"];
+        $quantityOrdered = $_POST["quantity-ordered"];
+        
+        $query = "INSERT INTO `order_details` VALUES (?, ?, ?);";
         $statement = mysqli_prepare($connection, $query);
-        mysqli_stmt_bind_param($statement, "issss", $accountId, $status, $orderedDate, $shippedDate, $receivedDate);
+        mysqli_stmt_bind_param($statement, "iii", $orderId, $merchId, $quantityOrdered);
         
         if (mysqli_stmt_execute($statement)) {
             http_response_code(200);
             $response = [
-                "message" => "New order inserted."
+                "message" => "New order details created successfully."
             ];
         } else {
             http_response_code(400);

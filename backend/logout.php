@@ -6,7 +6,8 @@
 
     http_response_code(200);
     echo json_encode([
-        "message" => "Logout successful"
+        "message" => "Logout successful",
+        "redirect" => "/login.php"
     ]);
-
+    exit;
 ?>

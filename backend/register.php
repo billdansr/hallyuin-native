@@ -4,7 +4,6 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fullname = $_POST["fullname"];
-        $birthdate = $_POST["birthdate"];
         $username = $_POST["username"];
         $email = $_POST["email"];
         $password = $_POST["password"];
@@ -47,17 +46,24 @@
         }
 
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO `accounts` (`full_name`, `birthdate`, `username`, `email`, `password`) VALUES (?, ?, ?, ?, ?);";
+        $query = "INSERT INTO `accounts` (`full_name`, `username`, `email`, `password`) VALUES (?, ?, ?, ?);";
         $statement = mysqli_prepare($connection, $query);
-        mysqli_stmt_bind_param($statement, "sssss", $fullname, $birthdate, $username, $email, $password);
-        mysqli_stmt_execute($statement);
+        mysqli_stmt_bind_param($statement, "ssss", $fullname, $username, $email, $password);
 
-        http_response_code(200);
-        echo json_encode([
-            "status" => "success",
-            "message" => "Registration success.",
-            "redirect" => "/login.php"
-        ]);
+        if (mysqli_stmt_execute($statement)) {
+            http_response_code(200);
+            $response = [
+                "message" => "Registration success.",
+                "redirect" => "/login.php"
+            ];
+        } else {
+            http_response_code(400);
+            $response = [
+                "message" => "Registration failed."
+            ];
+        }
+
+        echo json_encode($response);
     }
 
 ?>

@@ -2,14 +2,8 @@
 
     session_start();
     require_once "../../config.php";
+    include "../../auth.php";
 
-    if (!isset($_SESSION["account_id"])) {
-        http_response_code(400);
-        echo json_encode([
-            "message" => "Unauthorized"
-        ]);
-        exit;
-    }
     // if (!isset($_COOKIE["remember_me"])) {
     //     $queryCookie = "SELECT ";
     //     http_response_code(400);
@@ -21,9 +15,9 @@
 
     // GET (READ)
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
-        $id = $_GET["id"];
+        $id = (isset($_GET["id"])) ? $_GET["id"] : null;
         
-        if (isset($id) and is_int((int) $id)) {
+        if (isset($id) && is_int((int) $id)) {
             $query = "SELECT * FROM `merches` WHERE `id` = '".$_GET["id"]."';";
             $result = mysqli_query($connection, $query);
             $data = mysqli_fetch_assoc($result);
@@ -61,12 +55,22 @@
     }
 
     // DELETE
-    if ($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET["method"])) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["method"])) {
+        // Only admin can delete merches
+        // if ($_SESSION["account_role"] != "admin") {
+        //     http_response_code(400);
+        //     echo json_encode([
+        //         "message" => "Unauthorized. You are not an admin."
+        //     ]);
+        // }
+        include "../../admin.php";
+
+
         if ($_GET["method"] == "delete") {
 
-            $id = $_GET["id"];
+            $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
-            if (isset($id) and is_int((int) $id)) {
+            if (isset($id) && is_int((int) $id)) {
                 $query = "DELETE FROM `merches` WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "i", $id);
@@ -102,8 +106,16 @@
     }
 
     // PUT (EDIT)
-    if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["method"])) {
-        if ($_POST["method"] = "put") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["method"])) {
+        // Only admin can edit merches
+        if ($_SESSION["account_role"] != "admin") {
+            http_response_code(400);
+            echo json_encode([
+                "message" => "Unauthorized. You are not an admin."
+            ]);
+        }
+
+        if ($_POST["method"] == "put") {
             $id = $_POST["id"];
             $name = $_POST["name"];
             $price = $_POST["price"];
@@ -112,7 +124,7 @@
             $category = $_POST["category"];
             $image = loadImage();
 
-            if (!empty($id) and is_int((int) $id)) {
+            if (!empty($id) && is_int((int) $id)) {
                 $query = "UPDATE `merches` SET `name` = ?, `price` = ?, `description` = ?, `stock` = ?, `image` = ?, `category` = ? WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "sdsissi", $name, $price, $description, $stock, $image, $category, $id);
@@ -148,7 +160,15 @@
     }
 
     // POST (CREATE)
-    if ($_SERVER["REQUEST_METHOD"] == "POST" and !isset($_POST["method"])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Only admin can create a new merch
+        if ($_SESSION["account_role"] != "admin") {
+            http_response_code(400);
+            echo json_encode([
+                "message" => "Unauthorized. You are not an admin."
+            ]);
+        }
+
         $name = $_POST["name"];
         $price = $_POST["price"];
         $description = $_POST["description"];

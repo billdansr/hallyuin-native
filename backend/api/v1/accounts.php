@@ -2,35 +2,39 @@
 
     session_start();
     require_once "../../config.php";
+    include "../../auth.php";
 
-    if (!isset($_SESSION["account_id"])) {
-        http_response_code(400);
-        echo json_encode([
-            "message" => "Unauthorized"
-        ]);
-        exit;
-    }
+    // Admin endpoint
+    // if ($_SESSION["account_role"] != "admin") {
+    //     http_response_code(400);
+    //     echo json_encode([
+    //         "message" => "Unauthorized. You are not an admin."
+    //     ]);
+    // }
+    include "../../admin.php";
 
     // GET
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
-        $id = $_GET["id"];
+        $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
-        if (isset($id) and is_int((int) $id)) {
+        if (isset($id) && is_int((int) $id)) {
             $query = "SELECT * FROM `accounts` WHERE `id` = '".$_GET["id"]."';";
             $result = mysqli_query($connection, $query);
-            $data = mysqli_fetch_assoc($result);
 
-            if (empty($data)) {
-                http_response_code(400);
+            if (mysqli_num_rows($result) > 0) {
+                $data = mysqli_fetch_assoc($result);
+
+                http_response_code(200);
                 echo json_encode([
-                    "message" => "Account does not exists."
+                    "message" => "Account retrieved successfully.",
+                    "data" => $data
                 ]);
+                exit;
             }
 
-            http_response_code(200);
+            http_response_code(400);
             echo json_encode([
-                "message" => "Account retrieved.",
-                "data" => $data
+                "message" => "Account does not exists."
             ]);
             exit;
         }
@@ -52,11 +56,11 @@
     }
 
     // DELETE
-    if ($_SERVER['REQUEST_METHOD'] == "GET" and isset($_GET["method"])) {
+    if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET["method"])) {
         if ($_GET["method"] == "delete") {
-            $id = $_GET["id"];
+            $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
-            if (isset($id) and is_int((int) $id)) {
+            if (isset($id) && is_int((int) $id)) {
                 $query = "DELETE FROM `accounts` WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "i", $id);
@@ -85,7 +89,7 @@
     }
 
     // PUT
-    if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["method"])) {
+    if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["method"])) {
         if ($_POST["method"] == "put") {
             $username = $_POST["username"];
             $fullname = $_POST["fullname"];

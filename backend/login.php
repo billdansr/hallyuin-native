@@ -39,9 +39,14 @@
                 // }
 
                 http_response_code(200);
-                if ($account["role"] = "user") {
+                if ($account["role"] == "user") {
                     $response = [
-                        "message" => "Login success",
+                        "message" => "Login success.",
+                        "redirect" => "/"
+                    ];
+                } else if ($account["role"] == "admin") {
+                    $response = [
+                        "message" => "You are logged in as admin.",
                         "redirect" => "/"
                     ];
                 }

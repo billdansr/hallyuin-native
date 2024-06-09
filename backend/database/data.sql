@@ -1,16 +1,15 @@
 -- SQLBook: Code
-INSERT INTO `accounts` VALUES (
-    1,
+DELETE FROM `accounts` WHERE `username` = 'admin';
+INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, `role`) VALUES (
     'admin',
     'admin admin admin',
     'admin@mail.com',
-    'admin',
+    '$2y$10$jvq5XsvP/dM1LgwNELasae4s/5ldi68jPdfy/.eO2PkM2/rftBcrm',
     999999999999.99,
     'admin'
 );
 
-INSERT INTO `accounts` VALUES (
-    4002,
+INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, `role`) VALUES (
     'Guma Weenata',
     'Adiwangsa Dwi Hadinata',
     'weenata@mail.com',
@@ -19,8 +18,7 @@ INSERT INTO `accounts` VALUES (
     'user'
 );
 
-INSERT INTO `merches` VALUES (
-    301,
+INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `category`) VALUES (
     'TWICE - Feel Special The 8th Mini Album',
     295500.00,
     '[Released Sep 23rd, 2019]
