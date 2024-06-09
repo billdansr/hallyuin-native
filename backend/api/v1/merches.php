@@ -17,7 +17,7 @@
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $id = (isset($_GET["id"])) ? $_GET["id"] : null;
         
-        if (isset($id) && is_int((int) $id)) {
+        if ($id && is_int((int) $id)) {
             $query = "SELECT * FROM `merches` WHERE `id` = '".$_GET["id"]."';";
             $result = mysqli_query($connection, $query);
             $data = mysqli_fetch_assoc($result);
@@ -70,7 +70,7 @@
 
             $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
-            if (isset($id) && is_int((int) $id)) {
+            if ($id && is_int((int) $id)) {
                 $query = "DELETE FROM `merches` WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "i", $id);
@@ -124,7 +124,7 @@
             $category = $_POST["category"];
             $image = loadImage();
 
-            if (!empty($id) && is_int((int) $id)) {
+            if (isset($id) && is_int((int) $id)) {
                 $query = "UPDATE `merches` SET `name` = ?, `price` = ?, `description` = ?, `stock` = ?, `image` = ?, `category` = ? WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "sdsissi", $name, $price, $description, $stock, $image, $category, $id);

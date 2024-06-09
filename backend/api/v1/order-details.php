@@ -6,10 +6,10 @@
 
     // GET
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        $orderId = $_GET["order-id"];
-        $merchId = $_GET["merch-id"];
+        $orderId = isset($_GET["order-id"]) ? $_GET["order-id"] : null;
+        $merchId = isset($_GET["merch-id"]) ? $_GET["order-id"] : null;
 
-        if ((isset($orderId) && is_int((int) $orderId)) && (isset($merchId) && is_int((int) $merchId))) {
+        if (($orderId && is_int((int) $orderId)) && ($merchId && is_int((int) $merchId))) {
             $query = "SELECT * FROM `order_details` WHERE `order_id` = '".$orderId."' AND `merch_id` = '".$merchId."';";
             $result = mysqli_query($connection, $query);
 

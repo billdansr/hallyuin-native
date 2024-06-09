@@ -17,7 +17,7 @@
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
-        if (isset($id) && is_int((int) $id)) {
+        if ($id && is_int((int) $id)) {
             $query = "SELECT * FROM `accounts` WHERE `id` = '".$_GET["id"]."';";
             $result = mysqli_query($connection, $query);
 
@@ -39,7 +39,7 @@
             exit;
         }
 
-        $query = "SELECT * FROM `merches`";
+        $query = "SELECT * FROM `accounts`";
         $result = mysqli_query($connection, $query);
         $data = array();
 
@@ -60,7 +60,7 @@
         if ($_GET["method"] == "delete") {
             $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
-            if (isset($id) && is_int((int) $id)) {
+            if ($id && is_int((int) $id)) {
                 $query = "DELETE FROM `accounts` WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "i", $id);

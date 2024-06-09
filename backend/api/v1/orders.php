@@ -54,11 +54,11 @@
     }
 
     // Delete
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_POST["method"])) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["method"])) {
         if ($_GET["method"] == "delete") {
             $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
-            if (isset($id) && is_int((int) $id)) {
+            if ($id && is_int((int) $id)) {
                 $query = "DELETE FROM `orders` WHERE `id` = ?;";
                 $statement = mysqli_prepare($connection, $query);
                 mysqli_stmt_bind_param($statement, "i", $id);

@@ -34,3 +34,7 @@ INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `catego
     'https://kpopmerch.com/cdn/shop/products/twice-album-twice-feel-special-the-8th-mini-album-33435890942133_1000x.jpg?v=1652344014',
     'Twice [JYP Entertainment]'
 );
+
+INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `category`) VALUES (
+    'TWICE - Official Light'
+)

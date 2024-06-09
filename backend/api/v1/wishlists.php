@@ -2,14 +2,7 @@
 
     session_start();
     require_once "../../config.php";
-
-    if (!isset($_SESSION["account_id"])) {
-        http_response_code(400);
-        echo json_encode([
-            "message" => "Unauthorized"
-        ]);
-        exit;
-    }
+    include "../../auth.php";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $accountId = $_SESSION["account_id"];
