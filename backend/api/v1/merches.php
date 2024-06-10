@@ -14,7 +14,7 @@
     // }
 
     // GET (READ)
-    if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    if ($_SERVER['REQUEST_METHOD'] == "GET" && !isset($_GET["method"])) {
         $id = (isset($_GET["id"])) ? $_GET["id"] : null;
         
         if ($id && is_int((int) $id)) {
@@ -56,18 +56,9 @@
 
     // DELETE
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["method"])) {
-        // Only admin can delete merches
-        // if ($_SESSION["account_role"] != "admin") {
-        //     http_response_code(400);
-        //     echo json_encode([
-        //         "message" => "Unauthorized. You are not an admin."
-        //     ]);
-        // }
         include "../../admin.php";
 
-
         if ($_GET["method"] == "delete") {
-
             $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
             if ($id && is_int((int) $id)) {
@@ -96,7 +87,8 @@
             } else {
                 http_response_code(400);
                 $response = [
-                    "message" => "Invalid request."
+                    "message" => "Invalid request.",
+                    "id" => $_GET["id"]
                 ];
             }
             
@@ -108,12 +100,7 @@
     // PUT (EDIT)
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["method"])) {
         // Only admin can edit merches
-        if ($_SESSION["account_role"] != "admin") {
-            http_response_code(400);
-            echo json_encode([
-                "message" => "Unauthorized. You are not an admin."
-            ]);
-        }
+        include "../../admin.php";
 
         if ($_POST["method"] == "put") {
             $id = $_POST["id"];
@@ -223,7 +210,7 @@
             exit;
         }
 
-        if ($fileSize > 1000000) {
+        if ($fileSize > 8000000) {
             http_response_code(400);
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode([

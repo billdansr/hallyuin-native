@@ -4,8 +4,9 @@
         http_response_code(400);
         echo json_encode([
             "message" => "Unauthorized. You are not an admin.",
-            "redirect" => "/login.php"
+            "redirect" => "login.html   "
         ]);
+        exit;
     }
     
 ?>

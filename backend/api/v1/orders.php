@@ -4,7 +4,6 @@
     require_once "../../config.php";
     include "../../auth.php";
 
-
     // Get
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $id = isset($_GET["id"]) ? $_GET["id"] : null;

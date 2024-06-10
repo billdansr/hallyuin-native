@@ -1,6 +1,4 @@
 -- SQLBook: Code
-USE `hallyuin-native`;
-
 -- CREATE TABLE user_tokens (
 --     `id` INT AUTO_INCREMENT PRIMARY KEY,
 --     `user_id` INT NOT NULL,
@@ -44,6 +42,7 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `account_id` INT UNSIGNED,
+    `address` TEXT NULL,
     `status` ENUM('ordered', 'shipped', 'received') NULL DEFAULT 'ordered',
     `ordered_date` DATE NULL DEFAULT (CURRENT_DATE),
     `shipped_date` DATE NULL,
@@ -74,13 +73,10 @@ FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`)
 CREATE VIEW `sales_rank` AS
 SELECT `m`.`name`,
     SUM(`od`.`quantity_ordered`) AS `quantity_sold`,
-    RANK() OVER(ORDER BY `quantity_sold` DESC) AS `top_sales`
+    RANK() OVER(ORDER BY `quantity_sold` DESC) AS `rank`
 FROM `order_details` AS `od`
 JOIN `merches` AS `m` ON `m`.`id` = `od`.`merch_id`
 GROUP BY `m`.`id`;
-
--- CREATE VIEW `order_list` AS
--- SELECT `id`, `account`.`name`, `status`, `ordered_date`
 
 DELIMITER //
 -- FUNCTION
@@ -102,17 +98,6 @@ BEGIN
     WHERE `o`.`id` = `in_order_id`;
 
     RETURN `total`;
-END//
-
--- TRIGGER
-CREATE TRIGGER `status_after_payment`
-AFTER INSERT
-ON `payments`
-FOR EACH ROW
-BEGIN
-    UPDATE `orders`
-    SET `status` = 'shipped'
-    WHERE `id` = NEW.`order_id`;
 END//
 
 -- PROCEDURE
@@ -144,6 +129,17 @@ BEGIN
 
         SET `offset` = `offset` + 1;
     END WHILE;
+END//
+
+-- TRIGGER
+CREATE TRIGGER `status_after_payment`
+AFTER INSERT
+ON `payments`
+FOR EACH ROW
+BEGIN
+    UPDATE `orders`
+    SET `status` = 'shipped'
+    WHERE `id` = NEW.`order_id`;
 END//
 
     -- TRANSACTION

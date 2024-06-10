@@ -10,14 +10,14 @@
     <fieldset>
         <legend>Get Merches</legend>
         <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="get">
-            <input type="submit" value="Get">
+            <input type="submit" value="GET">
         </form>
     </fieldset>
     <fieldset>
         <legend>Get Merch</legend>
         <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="get">
             <input type="number" name="id">
-            <input type="submit" value="Get">
+            <input type="submit" value="GET">
         </form>
     </fieldset>
     <fieldset>
@@ -33,7 +33,7 @@
                 <option value="bts">BTS</option>
                 <option value="blackpink">Blackpink</option>
             </select>
-            <input type="submit" value="Post">
+            <input type="submit" value="POST">
         </form>
     </fieldset>
     <fieldset>
@@ -51,7 +51,7 @@
                 <option value="bts">BTS</option>
                 <option value="blackpink">Blackpink</option>
             </select>
-            <input type="submit" value="Put">
+            <input type="submit" value="PUT">
         </form>
     </fieldset>
     <fieldset>
@@ -59,20 +59,22 @@
         <form action="http://localhost:8080/hallyuin-native/backend/api/v1/merches.php" method="post" id="delete-form">
             <input type="hidden" name="method" value="delete">
             <input type="number" name="id" id="id-to-be-deleted">
-            <input type="submit" value="Delete">
+            <input type="submit" value="DELETE">
         </form>
     </fieldset>
     <fieldset>
         <legend>Get Accounts</legend>
         <!-- <form action="http://localhost:8080/hallyuin-native/backend/api/v1/accounts.php" method="get"> -->
-        <form id="get-account">
+        <form id="get-accounts">
             <input type="submit" value="GET">
         </form>
+        <output id="accounts"></output>
     </fieldset>
     <script>
-        const getAccount = document.getElementById('get-account');
+        const getAccounts = document.getElementById('get-accounts');
+        const accounts = document.getElementById('accounts');
 
-        getAccount.addEventListener('submit', (event) => {
+        getAccounts.addEventListener('submit', (event) => {
             event.preventDefault();
 
             fetch('http://localhost:8080/hallyuin-native/backend/api/v1/accounts.php', {
@@ -80,8 +82,30 @@
             })
             .then(response => response.text())
             .then(data => {
-                console.log(data);
-                console.log(JSON.parse(data));
+                // let jsonObject = JSON.parse(data);
+                // console.log(jsonObject);
+                // console.log(jsonObject['message']);
+                // console.log(jsonObject['data']);
+                // let dataJson = JSON.parse(jsonObject['data']);
+                // console.log(dataJson);
+                // // accounts.innerText += jsonObject['data'];
+                // accounts.innerText += data;
+                // console.log(typeof data);
+
+                const jsonObject = JSON.parse(data);
+
+                console.log(jsonObject.message); // Outputs: Accounts retrieved.
+
+                jsonObject.data.forEach(account => {
+                    accounts.innerText += `ID: ${account.id}\n`;
+                    accounts.innerText += `Username: ${account.username}\n`;
+                    accounts.innerText += `Full Name: ${account.full_name}\n`;
+                    accounts.innerText += `Email: ${account.email}\n`;
+                    accounts.innerText += `Password: ${account.password}\n`;
+                    accounts.innerText += `Credit: ${account.credit}\n`;
+                    accounts.innerText += `Role: ${account.role}\n`;
+                    accounts.innerText += '---\n';
+                });
             })
             .catch(error => console.error(error));
         });
