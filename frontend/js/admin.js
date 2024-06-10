@@ -2,7 +2,7 @@ let url, options, data;
 
 // GET
 document.addEventListener('DOMContentLoaded', () => {
-    url = 'http://localhost:8080/hallyuin-native/backend/api/v1/merches.php';
+    url = 'http://localhost/hallyuin-native/backend/api/v1/merches.php';
     options = {
         method: 'GET',
     };
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text()
         } else {
             alert(response.status);
-            window.location.replace('http://localhost:8080/hallyuin-native/frontend/login.html')
+            window.location.replace('http://localhost/hallyuin-native/frontend/login.html')
         }
     })
     .then(data => {
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('insertForm').addEventListener('submit', (event) => {
     event.preventDefault();
 
-    url = 'http://localhost:8080/hallyuin-native/backend/api/v1/merches.php';
+    url = 'http://localhost/hallyuin-native/backend/api/v1/merches.php';
     options = {
         method: 'POST',
         body: new FormData(event.target),
@@ -80,7 +80,7 @@ document.getElementById('updateForm').addEventListener('submit', (event) => {
     formData.append('method', 'put');
     console.log(formData)
 
-    url = 'http://localhost:8080/hallyuin-native/backen/api/v1/merches.php';
+    url = 'http://localhost/hallyuin-native/backend/api/v1/merches.php';
     options = {
         method: 'POST',
         body: formData,
@@ -108,7 +108,7 @@ document.getElementById('imageEditInput').onchange = event => {
 document.getElementById('deleteForm').addEventListener('submit', (event) => {
     event.preventDefault();
 
-    url = `http://localhost:8080/hallyuin-native/backend/api/v1/merches.php?method=delete&id=${event.target.querySelector('input[name="id"]').value}`;
+    url = `http://localhost/hallyuin-native/backend/api/v1/merches.php?method=delete&id=${event.target.querySelector('input[name="id"]').value}`;
     options = {
         method: 'GET',
     };
@@ -127,9 +127,9 @@ document.getElementById('deleteForm').addEventListener('submit', (event) => {
 });
 
 // Ranking Penjualan
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
 
-    url = 'http://localhost:8080/hallyuin-native/backend/api/v1/rank.php';
+    url = 'http://localhost/hallyuin-native/backend/api/v1/rank.php';
     options = {
         method: 'GET',
     };
@@ -172,3 +172,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
 //     merchCells[5].innerHTML = '<input type="file" name="image">';
 //     merchCells[6].setAttribute('contenteditable', true);
 // }
+
+// document.getElementById('search').addEventListener('change', (event) => {
+//     url = `http://localhost/hallyuin-native/backend/api/v1/search.php?search=${event.target.value}`;
+//     options = {
+//         method: 'GET',
+//     };
+
+//     fetch(url, options)
+//     .then(response => response.text())
+//     .then(data => {
+//         document.getElementById('search-output').innerHTML = '';
+
+//         console.log(data);
+//         jsonObject = JSON.parse(data);
+//         data = jsonObject['data'];
+
+//         data.forEach(merch => {
+//             document.getElementById('search-output').innerHTML += merch.name + '<br><br>';
+//         });
+//     })
+//     .catch(error => {
+//         console.error(error);
+//         alert(error);
+//     });
+// });

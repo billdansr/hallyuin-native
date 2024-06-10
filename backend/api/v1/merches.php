@@ -109,7 +109,7 @@
             $description = $_POST["description"];
             $stock = $_POST["stock"];
             $category = $_POST["category"];
-            $image = loadImage();
+            $image = "http://localhost/hallyuin-native/backend/image/".loadImage();
 
             if (isset($id) && is_int((int) $id)) {
                 $query = "UPDATE `merches` SET `name` = ?, `price` = ?, `description` = ?, `stock` = ?, `image` = ?, `category` = ? WHERE `id` = ?;";

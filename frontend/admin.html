@@ -8,6 +8,8 @@
     <title>Admin Page</title>
 </head>
 <body>
+    <!-- <input type="text" id="search">
+    <output id="search-output"></output> -->
     <div class="container">
         <h1>Admin Page</h1>
 
@@ -42,8 +44,11 @@
                 <input type="text" name="description" placeholder="Deskripsi" required>
                 <input type="number" name="stock" placeholder="Stok" required min="0">
                 <!-- <input type="text" name="gambar" placeholder="URL Gambar" required> -->
+                <br><br>
                 <input id="imageInput" type="file" name="image" required>
+                <br><br>
                 <img id="imagePreview" src="#" alt="Preview" width="100">
+                <br><br>
                 <!-- <input type="text" name="kategori" placeholder="Kategori" required> -->
                 <select name="category">
                     <option value="" disabled selected>Pilih Kategori</option>
@@ -51,6 +56,7 @@
                     <option value="SEVENTEEN">SEVENTEEN</option>
                     <option value="LE SSERAFIM">LE SSERAFIM</option>
                 </select>
+                <br><br>
                 <button type="submit">Add Merch</button>
             </form>
         </section>
@@ -68,8 +74,11 @@
                 <input type="text" name="description" placeholder="Deskripsi" required>
                 <input type="number" name="stock" placeholder="Stok" required>
                 <!-- <input type="text" name="gambar" placeholder="URL Gambar" required> -->
+                <br><br>
                 <input id="imageEditInput" type="file" name="image" required>
+                <br><br>
                 <img id="imageEditPreview" src="#" alt="Preview" width="100">
+                <br><br>
                 <!-- <input type="text" name="kategori" placeholder="Kategori" required> -->
                 <select name="category">
                     <option value="" disabled selected>Pilih Kategori</option>
@@ -79,6 +88,7 @@
                     <option value="NEWJEANS">NEWJEANS</option>
                     <option value="BTS">BTS</option>
                 </select>
+                <br><br>
                 <button type="submit">Update Merch</button>
             </form>
         </section>
