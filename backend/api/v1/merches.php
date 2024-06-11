@@ -56,7 +56,7 @@
 
     // DELETE
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["method"])) {
-        include "../../admin.php";
+        include "../../admin-auth.php";
 
         if ($_GET["method"] == "delete") {
             $id = isset($_GET["id"]) ? $_GET["id"] : null;
@@ -99,8 +99,8 @@
 
     // PUT (EDIT)
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["method"])) {
-        // Only admin can edit merches
-        include "../../admin.php";
+        // Only admin-auth can edit merches
+        include "../../admin-auth.php";
 
         if ($_POST["method"] == "put") {
             $id = $_POST["id"];
@@ -148,11 +148,11 @@
 
     // POST (CREATE)
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Only admin can create a new merch
-        if ($_SESSION["account_role"] != "admin") {
+        // Only admin-auth can create a new merch
+        if ($_SESSION["account_role"] != "admin-auth") {
             http_response_code(400);
             echo json_encode([
-                "message" => "Unauthorized. You are not an admin."
+                "message" => "Unauthorized. You are not an admin-auth."
             ]);
         }
 

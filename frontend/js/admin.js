@@ -2,20 +2,25 @@ let url, options;
 
 // GET
 document.addEventListener('DOMContentLoaded', () => {
-    url = 'http://localhost/hallyuin-native/backend/admin.php';
+    // url = 'http://localhost/hallyuin-native/backend/admin-auth.php';
     
-    fetch(url)
-    .then(response => response.text())
-    .then(data => {
-        data = JSON.parse(data);
+    // fetch(url)
+    // .then(response => response.text())
+    // .then(data => {
+    //     data = JSON.parse(data);
 
-        alert(data['message']);
-        window.location.replace(`http://localhost/hallyuin-native/frontend/${data['redirect']}.php`)
-    })
-    .catch(error => {
-        console.error(error);
-        alert(error);
-    });
+    //     console.log(data)
+    //     console.log(data['alert'])
+    //     alert(data['message']);
+        
+    //     if (data['redirect']) {
+    //         window.location.replace(`http://localhost/hallyuin-native/frontend/${data['redirect']}.php`)
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error(error);
+    //     alert(error);
+    // });
 
     url = 'http://localhost/hallyuin-native/backend/api/v1/merches.php';
     options = {
@@ -36,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${merch.description}</td>
                 <td>${merch.stock}</td>
                 <td>
-                    <img src=${merch.image} width="100">
+                    <img src=${merch.image.includes('http') ? merch.image : `http://localhost/hallyuin-native/backend/image/${merch.image}`} width="100">
                 </td>
                 <td>${merch.category}</td>
             </tr>`;
@@ -96,7 +101,11 @@ document.getElementById('updateForm').addEventListener('submit', (event) => {
 
     fetch(url, options)
     .then(response => response.text())
-    .then(data => console.log(data))
+    .then(data => {
+        console.log(data);
+        alert(JSON.parse(data).message);
+        window.location.reload;
+    })
     .catch(error => {
         console.error(error);
         alert(error);
@@ -143,20 +152,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     fetch(url, options)
-    .then(response => {
-        if (response.ok) {
-            return response.text()
-        } else {
-            alert(response.status);
-        }
-    })
+    .then(response => response.text())
     .then(data => {
         const jsonObject = JSON.parse(data);
 
         jsonObject['data'].forEach(merch => {
             document.getElementById('rankingTable').querySelector('tbody').innerHTML += 
             `<tr>
-                <td>${merch['merch']}</td>
+                <td>${merch['name']}</td>
                 <td>${merch['quantity_sold']}</td>
                 <td>${merch['rank']}</td>
             </tr>`;

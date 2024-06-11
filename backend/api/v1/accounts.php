@@ -4,14 +4,7 @@
     require_once "../../config.php";
     include "../../auth.php";
 
-    // Admin endpoint
-    // if ($_SESSION["account_role"] != "admin") {
-    //     http_response_code(400);
-    //     echo json_encode([
-    //         "message" => "Unauthorized. You are not an admin."
-    //     ]);
-    // }
-    include "../../admin.php";
+    include "../../admin-auth.php";
 
     // GET
     if ($_SERVER['REQUEST_METHOD'] == "GET") {

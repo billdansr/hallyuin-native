@@ -48,7 +48,7 @@
 
     // DELETE
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["method"])) {
-        include "../../admin.php";
+        include "../../admin-auth.php";
         if ($_GET["method"] == "delete") {
             $id = $_GET["id"];
 
@@ -74,7 +74,7 @@
 
     // PUT
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["method"])) {
-        include "../../admin.php";
+        include "../../admin-auth.php";
         if ($_POST["method"] == "put") {
             $amount = $_POST["amount"];
             $paidDate = $_POST["paid-date"];

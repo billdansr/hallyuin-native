@@ -6,7 +6,7 @@
 
     // GET
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        include "../../admin.php";
+        include "../../admin-auth.php";
 
         $query = "SELECT * FROM `sales_rank`;";
         $result = mysqli_query($connection, $query);

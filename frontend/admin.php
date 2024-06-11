@@ -79,7 +79,7 @@
                 <br><br>
                 <img id="imageEditPreview" src="#" alt="Preview" width="100">
                 <br><br>
-                <input type="text" name="kategori" placeholder="Kategori" required>
+                <input type="text" name="category" placeholder="Kategori" required>
                 <!-- <select name="category">
                     <option value="" disabled selected>Pilih Kategori</option>
                     <option value="TWICE">TWICE</option>

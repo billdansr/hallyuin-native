@@ -1,7 +1,14 @@
 -- SQLBook: Code
-USE `hallyuin-native`;
+-- USE `hallyuin-native`;
 
-DELETE FROM `accounts` WHERE `username` = 'admin';
+DELETE FROM `order_details`;
+DELETE FROM `orders`;
+DELETE FROM `payments`;
+DELETE FROM `wishlists`;
+DELETE FROM `merches`;
+DELETE FROM `accounts`;
+
+-- accounts
 INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, `role`) VALUES (
     'admin',
     'admin admin admin',
@@ -11,8 +18,6 @@ INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, 
     'admin'
 );
 
--- accounts
-DELETE FROM accounts WHERE username = 'Guma Weenata';
 INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, `role`) VALUES (
     'Guma Weenata',
     'Adiwangsa Dwi Hadinata',
@@ -23,7 +28,6 @@ INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, 
 );
 
 -- merches
-DELETE FROM `merches`;
 INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `category`) VALUES (
     'TWICE - Feel Special The 8th Mini Album',
     295500.00,
@@ -446,3 +450,40 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     'https://kpopmerch.com/cdn/shop/files/newjeans-album-newjeans-get-up-2nd-ep-bunny-beach-bag-ver-35563015372981_1000x.jpg?v=1688022496',
     'NewJeans'
 );
+
+-- orders
+INSERT INTO `orders` (`id`, `account_id`, `status`, `ordered_date`, `shipped_date`, `received_date`, `address`)
+VALUES (
+    1,
+    (SELECT `id` FROM `accounts` WHERE `username` = 'admin'),
+    'ordered',
+    (CURRENT_DATE),
+    NULL,
+    NULL,
+    'Jalan Pendidikan No 14'
+);
+
+INSERT INTO `order_details` (`order_id`, `merch_id`, `quantity_ordered`)
+VALUES (
+    1,
+    (SELECT `id` FROM `merches` WHERE `name` = 'TWICE - Official Light Stick INFINITY [CANDYBONG]'),
+    1
+), (
+    1,
+    (SELECT `id` FROM `merches` WHERE `name` = 'TWICE - What is Love? 5th Mini Album'),
+    1
+);
+
+-- FUNCTION: calculate_subtotal(quantity_ordered, price) -- Used in calculate_total() function
+SELECT `calculate_subtotal`(5, 12500);
+
+-- FUNCTION: calculate_total(order_id) -- Used in pay() procedure
+SELECT `calculate_total`(1);
+
+-- PROCEDURE: calculate_stock(order_id) -- Used in pay() procedure
+
+-- PROCEDURE: pay(account_id, order_id)
+CALL `pay`((SELECT `id` FROM `accounts` WHERE `username` = 'admin'), 1);
+
+-- VIEW: sales_rank
+SELECT * FROM `sales_rank`;

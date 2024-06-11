@@ -26,6 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.text())
     .then(data => {
         console.log(data);
+        
+        data = JSON.parse(data);
+
+        if (data['redirect']) {
+            alert(data['message']);
+            window.location.href = `http://localhost/hallyuin-native/frontend/${data['redirect']}.php`;
+        }
     })
     .catch(error => {
         console.error(error);

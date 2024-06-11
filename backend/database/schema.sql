@@ -7,6 +7,19 @@
 --     FOREIGN KEY (user_id) REFERENCES `accounts`(id) ON DELETE CASCADE
 -- );
 
+DROP VIEW IF EXISTS `sales_rank`;
+DROP FUNCTION IF EXISTS `calculate_subtotal`;
+DROP FUNCTION IF EXISTS `calculate_total`;
+DROP PROCEDURE IF EXISTS `calculate_stock`;
+DROP PROCEDURE IF EXISTS `pay`;
+DROP TABLE IF EXISTS `payments`;
+DROP TABLE IF EXISTS `order_details`;
+DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `wishlists`;
+DROP TABLE IF EXISTS `accounts`;
+DROP TABLE IF EXISTS `merches`;
+
+
 -- DROP TABLE IF EXISTS `merches`;
 CREATE TABLE IF NOT EXISTS `merches` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -42,12 +55,12 @@ CREATE TABLE IF NOT EXISTS `wishlists` (
 CREATE TABLE IF NOT EXISTS `orders` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `account_id` INT UNSIGNED,
-    `address` TEXT NULL,
     `status` ENUM('ordered', 'shipped', 'received') NULL DEFAULT 'ordered',
     `ordered_date` DATE NULL DEFAULT (CURRENT_DATE),
     `shipped_date` DATE NULL,
     `received_date` DATE NULL, 
-    FOREIGN KEY (`account_id`) REFERENCES `accounts`(`id`)
+    `address` TEXT NULL,
+    FOREIGN KEY (`account_id`) REFERENCES `accounts`(`id`) ON DELETE CASCADE
 );
 
 -- DROP TABLE IF EXISTS `order_details`;
@@ -80,14 +93,16 @@ GROUP BY `m`.`id`;
 
 DELIMITER //
 -- FUNCTION
-CREATE FUNCTION `calculate_subtotal`(`in_quantity_ordered` INT UNSIGNED, `in_price` DECIMAL(15, 2) UNSIGNED)
+CREATE FUNCTION `calculate_subtotal`(in_quantity_ordered INT UNSIGNED, in_price DECIMAL(15, 2) UNSIGNED)
 RETURNS DECIMAL(15, 2) UNSIGNED
+DETERMINISTIC
 BEGIN
-    RETURN `in_quantity_ordered` * `in_price`;
+    RETURN in_quantity_ordered * in_price;
 END//
 
-CREATE FUNCTION `calculate_total`(`in_order_id` INT UNSIGNED)
+CREATE FUNCTION `calculate_total`(in_order_id INT UNSIGNED)
 RETURNS DECIMAL(15, 2) UNSIGNED
+DETERMINISTIC
 BEGIN
     DECLARE `total` DECIMAL(15, 2) UNSIGNED DEFAULT 0;
 
@@ -95,39 +110,39 @@ BEGIN
     FROM `order_details` AS `od`
     JOIN `orders` AS `o` ON `o`.`id` = `od`.`order_id`
     JOIN `merches` AS `m` ON `m`.`id` = `od`.`merch_id`
-    WHERE `o`.`id` = `in_order_id`;
+    WHERE `o`.`id` = in_order_id;
 
     RETURN `total`;
 END//
 
 -- PROCEDURE
-CREATE PROCEDURE `calculate_stock`(IN `in_order_id` INT UNSIGNED)
+CREATE PROCEDURE `calculate_stock`(IN in_order_id INT UNSIGNED)
 BEGIN
-    DECLARE `order_detail_quantity_ordered` INT UNSIGNED;
-    DECLARE `order_detail_merch_id` INT UNSIGNED;
-    DECLARE `order_details_count` INT;
-    DECLARE `offset` INT DEFAULT 0;
+    DECLARE order_detail_quantity_ordered INT UNSIGNED;
+    DECLARE order_detail_merch_id INT UNSIGNED;
+    DECLARE order_details_count INT;
+    DECLARE row_offset INT DEFAULT 0;
 
-    SELECT COUNT(*) INTO `order_details_count`
+    SELECT COUNT(*) INTO order_details_count
     FROM `order_details`
-    WHERE `order_id` = `in_order_id`;
+    WHERE `order_id` = in_order_id;
 
-    WHILE `offset` < `order_details_count` DO
-        SELECT `quantity_ordered` INTO `order_detail_quantity_ordered`
+    WHILE row_offset < order_details_count DO
+        SELECT `quantity_ordered` INTO order_detail_quantity_ordered
         FROM `order_details`
-        WHERE `order_id` = `in_order_id`
-        LIMIT `offset`, 1;
+        WHERE `order_id` = in_order_id
+        LIMIT row_offset, 1;
 
-        SELECT `merch_id` INTO `order_detail_merch_id`
+        SELECT `merch_id` INTO order_detail_merch_id
         FROM `order_details`
-        WHERE `order_id` = `in_order_id`
-        LIMIT `offset`, 1;
+        WHERE `order_id` = in_order_id
+        LIMIT row_offset, 1;
 
         UPDATE `merches`
-        SET `stock` = `stock` - `order_detail_quantity_ordered`
-        WHERE `id` = `order_detail_merch_id`;
+        SET `stock` = `stock` - order_detail_quantity_ordered
+        WHERE `id` = order_detail_merch_id;
 
-        SET `offset` = `offset` + 1;
+        SET row_offset = row_offset + 1;
     END WHILE;
 END//
 
@@ -143,25 +158,32 @@ BEGIN
 END//
 
     -- TRANSACTION
-CREATE PROCEDURE `pay`(IN `in_account_id` INT UNSIGNED, IN `in_order_id` INT UNSIGNED)
+CREATE PROCEDURE `pay`(IN in_account_id INT UNSIGNED, IN in_order_id INT UNSIGNED)
 BEGIN
-    DECLARE `amount_to_be_payed` DECIMAL(15, 2);
-    DECLARE `account_credit` DECIMAL(15, 2);
+    DECLARE amount_to_be_payed DECIMAL(15, 2);
+    DECLARE account_credit DECIMAL(15, 2);
 
-    SELECT `calculate_total`(`in_order_id`) INTO `amount_to_be_payed`;
-    SELECT `credit` INTO `account_credit`
+    SELECT `calculate_total`(in_order_id) INTO amount_to_be_payed;
+    SELECT `credit` INTO account_credit
     FROM `accounts`
-    WHERE `id` = `in_account_id`;
+    WHERE `id` = in_account_id;
 
-    START TRANSACTION
-    IF (`account_credit` < `amount_to_be_payed`) THEN
+    START TRANSACTION;
+    IF (account_credit < amount_to_be_payed) THEN
         ROLLBACK;
     ELSE
-        UPDATE `account`
+        INSERT INTO `payments` (`order_id`, `amount`, `paid_date`)
+        VALUES (
+            in_order_id,
+            amount_to_be_payed,
+            (CURRENT_DATE)
+        );
+
+        UPDATE `accounts`
         SET `credit` = `credit` - `amount_to_be_payed`
         WHERE `id` = `in_account_id`;
 
-        CALL `calculate_stock`(`in_order_id`);
+        CALL `calculate_stock`(in_order_id);
     END IF;
     COMMIT;
 END//
