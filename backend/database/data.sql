@@ -28,7 +28,7 @@ INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, 
 );
 
 -- merches
-INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `category`) VALUES (
+INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `category`, `released_datetime`) VALUES (
     'TWICE - Feel Special The 8th Mini Album',
     295500.00,
     '[JYP Entertainment]
@@ -43,10 +43,11 @@ INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `catego
     Gold Photocard',
     10,
     'https://kpopmerch.com/cdn/shop/products/twice-album-twice-feel-special-the-8th-mini-album-33435890942133_1000x.jpg?v=1652344014',
-    'TWICE'
+    'TWICE',
+    '2019-09-23'
 );
 
-INSERT INTO merches (name, price, description, stock, image, category) VALUES (
+INSERT INTO merches (name, price, description, stock, image, category, released_datetime) VALUES (
     'TWICE - Official Light Stick INFINITY [CANDYBONG]',
     1100000.00,
     '[JYP Entertaiment]
@@ -69,10 +70,11 @@ INSERT INTO merches (name, price, description, stock, image, category) VALUES (
     7. Press button without touching touchpad for turn off the Light Stick',
     25,
     'https://kpopmerch.com/cdn/shop/products/team-md-goods-twice-official-light-stick-infinity-candybong-35200963674293_1000x.jpg?v=1679297184',
-    'TWICE'
+    'TWICE',
+    '2023-08-25'
 );
 
-INSERT INTO merches (name, price, description, stock, image, category) VALUES (
+INSERT INTO merches (name, price, description, stock, image, category, released_datetime) VALUES (
     'TWICE - What is Love? 5th Mini Album',
     230000.00,
     '[JYP Entertainment]
@@ -89,10 +91,11 @@ INSERT INTO merches (name, price, description, stock, image, category) VALUES (
     - Sticker',
     31,
     'https://kpopmerch.com/cdn/shop/products/twice-album-twice-what-is-love-5th-mini-album-33441257980085_1000x.jpg?v=1652400720',
-    'TWICE'
+    'TWICE',
+    '2018-04-09'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'TWICE - TWICE MONOGRAPH TO BE READY',
     500000.00,
     '[JYP Entertainment]
@@ -103,10 +106,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Photocard 9EA',
     42,
     'https://kpopmerch.com/cdn/shop/files/twice-md-goods-twice-twice-monograph-to-be-ready-35601545167029_1000x.jpg?v=1688716937',
-    'TWICE'
+    'TWICE',
+    '2023-09-11'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'SEVENTEEN - SEVENTEENTH HEAVEN 11th Mini Album',
     400000.00,
     '[PLEDIS Entertainment]
@@ -124,10 +128,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - CD-R',
     13,
     'https://kpopmerch.com/cdn/shop/files/seventeen-album-seventeen-seventeen-heaven-11th-mini-album-35950320779445_1000x.jpg?v=1695176950',
-    'SEVENTEEN'
+    'SEVENTEEN',
+    '2023-10-23'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'SEVENTEEN - FML 10th Mini Album',
     330000.00,
     '[PLEDIS Entertainment]
@@ -142,10 +147,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Photocard',
     34,
     'https://kpopmerch.com/cdn/shop/products/seventeen-album-seventeen-fml-10th-mini-album-35305199370421_1000x.jpg?v=1681715126',
-    'SEVENTEEN'
+    'SEVENTEEN',
+    '2023-04-24'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'SEVENTEEN - THE NAME;1 Photobook',
     800000.00,
     '[Dispatch]
@@ -161,10 +167,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Instant Photo',
     24,
     'https://kpopmerch.com/cdn/shop/products/seventeen-md-goods-seventeen-the-name-17-photobook-34398861197493_1000x.jpg?v=1664333077',
-    'SEVENTEEN'
+    'SEVENTEEN',
+    '2022-11-03'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'SEVENTEEN - 17 CARAT 1st Mini Album',
     200000.00,
     '[PLEDIS Entertainment]
@@ -175,10 +182,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - CD-R',
     45,
     'https://kpopmerch.com/cdn/shop/files/seventeen-album-seventeen-17-carat-1st-mini-album-35477874213045_1000x.jpg?v=1686272175',
-    'SEVENTEEN'
-)
+    'SEVENTEEN',
+    '2023-06-27'
+);
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'LE SSERAFIM - Official Light Stick',
     1000000.00,
     '[HYBE]
@@ -199,14 +207,15 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     ',
     9,
     'https://kpopmerch.com/cdn/shop/products/le-sserafim-md-goods-le-sserafim-official-light-stick-35215361409205_1000x.jpg?v=1679645501',
-    'LE SSERAFIM'
+    'LE SSERAFIM',
+    '2023-04-03'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'LE SSERAFIM - 2023 Seasons Greetings [CLASS OF 2023]',
     1000000.00,
     '[SOURCE MUSIC]
-    [Released Dec 5th, 20232]
+    [Released Dec 5th, 2023]
     Information & Contents
     - Outbox
     - Photobook
@@ -220,10 +229,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Instant Photo',
     3,
     'https://kpopmerch.com/cdn/shop/products/g-i-dle-md-goods-le-sserafim-2023-season-s-greetings-class-of-2023-34710945595573_1000x.jpg?v=1669255170',
-    'LE SSERAFIM'
+    'LE SSERAFIM',
+    '2023-12-05'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     "LE SSERAFIM - LE SSERAFIM's DAY OFF IN JEJU PHOTOBOOK",
     500000.00,
     '[HYBE]
@@ -236,10 +246,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Envelope',
     26,
     'https://kpopmerch.com/cdn/shop/products/enhypen-md-goods-le-sserafim-le-sserafim-s-day-off-in-jeju-photobook-35204056350901_1000x.jpg?v=1679383403',
-    'LE SSERAFIM'
+    'LE SSERAFIM',
+    '2023-04-03'
 );
 
-INSERT INTO merches (name,price,description,stock,image,category) VALUES (
+INSERT INTO merches (name,price,description,stock,image,category, released_datetime) VALUES (
     'LE SSERAFIM - FEARLESS 1st Mini Album',
     345000.00,
     '[SOURCE MUSIC]
@@ -256,10 +267,11 @@ INSERT INTO merches (name,price,description,stock,image,category) VALUES (
     - Poster',
     13,
     'https://kpopmerch.com/cdn/shop/products/le-sserafim-album-le-sserafim-fearless-1st-mini-album-33322009755829_1000x.jpg?v=1650877195',
-    'LE SSERAFIM'
+    'LE SSERAFIM',
+    '2022-05-02'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'BTS - PROOF Anthology Album Set [Both Standard & Compact Edition]',
     1400000.00,
     '[BIGHIT MUSIC]
@@ -289,10 +301,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Discography Guide',
     8,
     'https://kpopmerch.com/cdn/shop/products/bts-album-bts-proof-33389101154485_1000x.jpg?v=1651715815',
-    'BTS'
+    'BTS',
+    '2022-06-10'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'BTS JUNG KOOK - GOLDEN (SET) + GOLDEN (Weverse Album Ver.)',
     1400000.00,
     '[BIGHIT MUSIC]
@@ -318,10 +331,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Content Envelope (1 EA)',
     15,
     'https://kpopmerch.com/cdn/shop/files/bts-album-bts-jungkook-golden-set-golden-weverse-album-ver-36020686717109_1000x.jpg?v=1696392852',
-    'BTS'
+    'BTS',
+    '2023-11-03'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'BTS - THE PLANET (BASTIONS OST)',
     390000.00,
     '[BIGHIT MUSIC]
@@ -338,10 +352,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Other Artist Poster',
     17,
     'https://kpopmerch.com/cdn/shop/files/bts-album-bts-the-planet-bastions-ost-35368266203317_1000x.jpg?v=1683532757',
-    'BTS'
+    'BTS',
+    '2023-05-26'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'BTS - PERMISSION TO DANCE ON STAGE in THE US',
     1200000.00,
     '[BIGHIT MUSIC]
@@ -355,10 +370,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Postcard+ Frame Stand Set',
     6,
     'https://kpopmerch.com/cdn/shop/files/bts-album-bts-permission-to-dance-on-stage-in-the-us-36265614934197_1000x.jpg?v=1701128927',
-    'BTS'
+    'BTS',
+    '2023-11-27'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'NewJeans - Get Up 2nd EP (Weverse Albums ver.)',
     200000.00,
     '[ADOR CO.,LTD]
@@ -371,10 +387,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - QR card',
     4,
     'https://kpopmerch.com/cdn/shop/files/newjeans-album-newjeans-get-up-2nd-ep-weverse-albums-ver-35563022713013_1000x.jpg?v=1688022678',
-    'NewJeans'
+    'NewJeans',
+    '2023-07-21'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'NewJeans - BUNNIES CAMP PHOTO SET',
     323000.00,
     '[ADOR CO.,LTD]
@@ -383,10 +400,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Photocard',
     10,
     'https://kpopmerch.com/cdn/shop/files/newjeans-md-goods-newjeans-bunnies-camp-photo-set-35503805464757_1000x.jpg?v=1686900556',
-    'NewJeans'
+    'NewJeans',
+    '2023-06-19'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'NewJeans - NewJeans Yearbook 22-23',
     1050000.00,
     '[ADOR CO.,LTD.]
@@ -404,14 +422,15 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Index sticker',
     6,
     'https://kpopmerch.com/cdn/shop/files/kpopmerch-newjeans-newjeans-yearbook-22-23-36161330282677_1000x.jpg?v=1698630434',
-    'NewJeans'
+    'NewJeans',
+    '2022-11-10'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     "NewJeans - 2023 Season's Greetings [Welcome to ROOM 722]",
     830000.00,
     '[ADOR CO.,LTD.]
-    [Released Dec th,2022]
+    [Released Dec 7th,2022]
     - Outbox
     - Desk Calendar
     - Hard Cover Diary
@@ -426,10 +445,11 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - Memo Pad',
     8,
     'https://kpopmerch.com/cdn/shop/products/newjeans-md-goods-newjeans-2023-season-s-greetings-welcome-to-room-722-34712501616821_1000x.jpg?v=1669278211',
-    'NewJeans'
+    'NewJeans',
+    '2022-12-7'
 );
 
-INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VALUES (
+INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`, `released_datetime`) VALUES (
     'NewJeans - Get Up 2nd EP (Bunny Beach Bag ver.)',
     350000.00,
     '[ADOR CO.,LTD.]
@@ -448,7 +468,8 @@ INSERT INTO merches (`name`,`price`,`description`,`stock`,`image`,`category`) VA
     - CD-R',
     9,
     'https://kpopmerch.com/cdn/shop/files/newjeans-album-newjeans-get-up-2nd-ep-bunny-beach-bag-ver-35563015372981_1000x.jpg?v=1688022496',
-    'NewJeans'
+    'NewJeans',
+    '2023-07-21'
 );
 
 -- orders
@@ -487,3 +508,10 @@ VALUES (
 
 -- VIEW: sales_rank
 -- SELECT * FROM `sales_rank`;
+
+-- VIEW: new_releases
+-- SELECT * FROM `new_releases`;
+
+-- SELECT * FROM `merches`
+-- ORDER BY `released_datetime` DESC
+-- LIMIT 5;

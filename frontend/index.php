@@ -109,44 +109,94 @@
                 <h1 class="fw-bold">New Releases</h1>
             </div>
             <div class="container">
-                <div class="owl-carousel owl-theme">
+                <div id="newReleases" class="owl-carousel owl-theme">
                     <!-- Card contents (same as provided) -->
                     <div class="item card-carousel me-2 position-relative">
-                        <!-- <img src="/hallyuin-native-main/assets/book-1.jpeg" alt="" /> -->
                         <img src="assets/book-1.jpeg" alt="" />
                         <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
                             <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
-                                <button>See product</button>
+                                <button class="see-product">See product</button>
                             </div>
                         </div>
                     </div>
                     <!-- card content -->
                     <div class="item card-carousel me-2 position-relative">
-                        <!-- <img src="/hallyuin-native-main/assets/book-2.jpeg" alt="" /> -->
                         <img src="assets/book-2.jpeg" alt="" />
                         <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
                             <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
-                                <button>See product</button>
+                                <button class="see-product">See product</button>
                             </div>
                         </div>
                     </div>
                     <!-- card content -->
                     <div class="item card-carousel me-2 position-relative">
-                        <!-- <img src="/hallyuin-native-main/assets/disc-1.jpeg" alt="" /> -->
                         <img src="assets/disc-1.jpeg" alt="" />
                         <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
                             <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
-                                <button>See product</button>
+                                <button class="see-product">See product</button>
                             </div>
                         </div>
                     </div>
                     <!-- card content -->
                     <div class="item card-carousel me-2 position-relative">
-                        <!-- <img src="/hallyuin-native-main/assets/disc-2.jpeg" alt="" /> -->
                         <img src="assets/disc-2.jpeg" alt="" />
                         <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
                             <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
-                                <button>See product</button>
+                                <button class="see-product">See product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card content -->
+                    <div class="item card-carousel me-2 position-relative">
+                        <img src="assets/disc-2.jpeg" alt="" />
+                        <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                <button class="see-product">See product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card content -->
+                    <div class="item card-carousel me-2 position-relative">
+                        <img src="assets/disc-2.jpeg" alt="" />
+                        <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                <button class="see-product">See product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card content -->
+                    <div class="item card-carousel me-2 position-relative">
+                        <img src="assets/disc-2.jpeg" alt="" />
+                        <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                <button class="see-product">See product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card content -->
+                    <div class="item card-carousel me-2 position-relative">
+                        <img src="assets/disc-2.jpeg" alt="" />
+                        <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                <button class="see-product">See product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card content -->
+                    <div class="item card-carousel me-2 position-relative">
+                        <img src="assets/disc-2.jpeg" alt="" />
+                        <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                <button class="see-product">See product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card content -->
+                    <div class="item card-carousel me-2 position-relative">
+                        <img src="assets/disc-2.jpeg" alt="" />
+                        <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                <button class="see-product">See product</button>
                             </div>
                         </div>
                     </div>
@@ -379,6 +429,7 @@
 
         <!-- Connect the JS file -->
         <script src="js/index.js"></script>
+        <script src="js/newReleases.js"></script>
         <!-- <script src="\hallyuin-native-main\js\carousel.js"></script>
         <script src="\hallyuin-native-main\js\product.js"></script>
         <script src="\hallyuin-native-main\js\categories.js"></script> -->
@@ -395,7 +446,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
             $(".owl-carousel").owlCarousel({
-                loop: true,
+                loop: false,
                 margin: 10,
                 nav: true,
                 responsive: {

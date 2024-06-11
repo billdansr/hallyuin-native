@@ -8,6 +8,7 @@
 -- );
 
 DROP VIEW IF EXISTS `sales_rank`;
+DROP VIEW IF EXISTS `new_releases`;
 DROP FUNCTION IF EXISTS `calculate_subtotal`;
 DROP FUNCTION IF EXISTS `calculate_total`;
 DROP PROCEDURE IF EXISTS `calculate_stock`;
@@ -19,7 +20,6 @@ DROP TABLE IF EXISTS `wishlists`;
 DROP TABLE IF EXISTS `accounts`;
 DROP TABLE IF EXISTS `merches`;
 
-
 -- DROP TABLE IF EXISTS `merches`;
 CREATE TABLE IF NOT EXISTS `merches` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS `merches` (
     `description` TEXT NULL,
     `stock` INT UNSIGNED NOT NULL DEFAULT 0,
     `image` VARCHAR(255) NULL,
-    `category` VARCHAR(255) NULL
+    `category` VARCHAR(255) NULL,
+    `released_datetime` DATETIME NULL DEFAULT (CURRENT_TIMESTAMP)
 );
 
 -- DROP TABLE IF EXISTS `accounts`;
@@ -82,6 +83,11 @@ FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`)
 );
 
 -- VIEW
+CREATE VIEW `new_releases` AS
+SELECT * FROM `merches`
+ORDER BY `released_datetime` DESC
+LIMIT 10;
+
     -- RANK
 CREATE VIEW `sales_rank` AS
 SELECT `m`.`name`,

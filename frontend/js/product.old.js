@@ -1,8 +1,23 @@
 const products = [
-	// { id: 1, name: "Product 1", price: "$40.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg", description: "Description of Product 1", capacity: "360ml", heatResistant: "0-100°C", material: "Glass" },
-	// { id: 2, name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg", description: "Description of Product 2", capacity: "360ml", heatResistant: "0-100°C", material: "Glass" },
-	// { id: 3, name: "Product 3", price: "$60.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg", description: "Description of Product 3", capacity: "360ml", heatResistant: "0-100°C", material: "Glass" }
-    // Tambahkan lebih banyak produk di sini
+	// { name: "Product 1", price: "$40.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 5", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 7", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// { name: "Product 2", price: "$50.00", imgSrc: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" },
+	// Tambahkan lebih banyak produk di sini
 ];
 
 const list_element = document.getElementById('list');
@@ -24,7 +39,6 @@ fetch(url, options)
 
 	data['data'].forEach(product => {
 		products.push({
-			id: product.id,
 			name: product.name,
 			price: product.price,
 			imgSrc: product.image,
@@ -36,7 +50,6 @@ fetch(url, options)
 })
 .catch(error => console.error(error));
 // FETCH END
-
 
 function DisplayList(items, wrapper, rows_per_page, page) {
 	wrapper.innerHTML = "";
@@ -55,30 +68,17 @@ function DisplayList(items, wrapper, rows_per_page, page) {
 			<div class="card-body p-4">
 				<div class="text-center">
 					<h5 class="fw-bolder">${item.name}</h5>
-					${formatRupiah(item.price)}
+					${item.price}
 				</div>
 			</div>
 			<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 				<div class="text-center">
-					<a class="btn btn-outline-dark mt-auto view-options" data-id="${item.id}" href="details.php?id=${item.id}">View options</a>
+					<a class="btn btn-outline-dark mt-auto" href="#">View options</a>
 				</div>
 			</div>
 		</div>
 		`;
 		wrapper.appendChild(item_element);
-	});
-
-	// Event listener for view options button
-	const viewOptionsButtons = document.querySelectorAll('.view-options');
-	viewOptionsButtons.forEach(button => {
-		button.addEventListener('click', function(event) {
-			event.preventDefault();
-			const productId = this.getAttribute('data-id');
-
-			url = `http://localhost/hallyuin-native/backend/api/v1/merches.php?id=${productId}`;
-			window.location.href = url;
-			// window.location.href = `details.php?id=${productId}`;
-		});
 	});
 }
 
@@ -102,7 +102,7 @@ function PaginationButton(page, items) {
 	button.addEventListener('click', function () {
 		current_page = page;
 		DisplayList(items, list_element, rows, current_page);
-
+		
 		let current_btn = document.querySelector('.pagination button.active');
 		current_btn.classList.remove('active');
 
@@ -114,17 +114,3 @@ function PaginationButton(page, items) {
 
 DisplayList(products, list_element, rows, current_page);
 SetupPagination(products, pagination_element, rows);
-
-function formatRupiah(number) {
-	return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
-}
-
-function revertRupiah(formattedNumber) {
-	// Remove "Rp" and any non-digit characters, except for the decimal separator
-	const cleanedString = formattedNumber.replace(/Rp|,|\./g, '').replace(/,/g, '.');
-	
-	// Convert to a number
-	const number = parseFloat(cleanedString);
-	
-	return isNaN(number) ? 0 : number;
-}
