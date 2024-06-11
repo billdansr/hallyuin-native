@@ -475,15 +475,15 @@ VALUES (
 );
 
 -- FUNCTION: calculate_subtotal(quantity_ordered, price) -- Used in calculate_total() function
-SELECT `calculate_subtotal`(5, 12500);
+-- SELECT `calculate_subtotal`(5, 12500);
 
 -- FUNCTION: calculate_total(order_id) -- Used in pay() procedure
-SELECT `calculate_total`(1);
+-- SELECT `calculate_total`(1);
 
 -- PROCEDURE: calculate_stock(order_id) -- Used in pay() procedure
 
 -- PROCEDURE: pay(account_id, order_id)
-CALL `pay`((SELECT `id` FROM `accounts` WHERE `username` = 'admin'), 1);
+-- CALL `pay`((SELECT `id` FROM `accounts` WHERE `username` = 'admin'), 1);
 
 -- VIEW: sales_rank
-SELECT * FROM `sales_rank`;
+-- SELECT * FROM `sales_rank`;

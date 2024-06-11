@@ -116,20 +116,24 @@
 
     // Post
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $accountId = $_POST["account-id"];
-        $status = $_POST["status"];
-        $orderedDate = $_POST["ordered-date"];
-        $shippedDate = $_POST["shipped-date"];
-        $receivedDate = $_POST["received-date"];
+        $accountId = $_SESSION["account_id"];
+        // $status = $_POST;
+        // $orderedDate = $_POST["ordered-date"];
+        // $shippedDate = $_POST["shipped-date"];
+        // $receivedDate = $_POST["received-date"];
 
-        $query = "INSERT INTO `orders` (`account_id`, `status`, `ordered_date`, `shipped_date`, `received_date`) VALUES (?, ?, ?, ?, ?);";
+        // $query = "INSERT INTO `orders` (`account_id`, `status`, `ordered_date`, `shipped_date`, `received_date`) VALUES (?, ?, ?, ?, ?);";
+        // $statement = mysqli_prepare($connection, $query);
+        // mysqli_stmt_bind_param($statement, "issss", $accountId, $status, $orderedDate, $shippedDate, $receivedDate);
+        $query = "INSERT INTO `orders` (`account_id`) VALUES (?);";
         $statement = mysqli_prepare($connection, $query);
-        mysqli_stmt_bind_param($statement, "issss", $accountId, $status, $orderedDate, $shippedDate, $receivedDate);
+        mysqli_stmt_bind_param($statement, "i", $accountId);
         
         if (mysqli_stmt_execute($statement)) {
             http_response_code(200);
             $response = [
-                "message" => "New order inserted."
+                "message" => "New order inserted.",
+                "orderId" => mysqli_insert_id($connection)
             ];
         } else {
             http_response_code(400);

@@ -12,6 +12,11 @@
             "redirect" => "login"
         ]);
         exit;
+    } else {
+        http_response_code(200);
+        // echo json_encode([
+        //     "message" => "Authorized.",
+        // ]);
     }
 
 ?>

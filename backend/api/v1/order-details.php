@@ -112,17 +112,18 @@
     // POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $orderId = $_POST["order-id"];
-        $merchId = $_POST["merch-id"];
+        // $merchId = $_POST["merch-id"];
+        $merchName = $_POST["name"];
         $quantityOrdered = $_POST["quantity-ordered"];
         
-        $query = "INSERT INTO `order_details` VALUES (?, ?, ?);";
+        $query = "INSERT INTO `order_details` VALUES (?, (SELECT `id` FROM `merches` WHERE `name` = ?), ?);";
         $statement = mysqli_prepare($connection, $query);
-        mysqli_stmt_bind_param($statement, "iii", $orderId, $merchId, $quantityOrdered);
+        mysqli_stmt_bind_param($statement, "iii", $orderId, $merchName, $quantityOrdered);
         
         if (mysqli_stmt_execute($statement)) {
             http_response_code(200);
             $response = [
-                "message" => "New order details created successfully."
+                "message" => "New order detail created successfully."
             ];
         } else {
             http_response_code(400);

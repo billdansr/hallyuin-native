@@ -25,17 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(url)
     .then(response => response.text())
     .then(data => {
-        console.log(data);
+        if (data) {
+            data = JSON.parse(data);
+        }
         
-        data = JSON.parse(data);
-
         if (data['redirect']) {
             alert(data['message']);
+            console.log(data['message']);
             window.location.href = `http://localhost/hallyuin-native/frontend/${data['redirect']}.php`;
         }
     })
     .catch(error => {
         console.error(error);
-        alert(error);
+        // alert(error);
     });
+
+    
 });
