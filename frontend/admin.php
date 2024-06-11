@@ -49,13 +49,13 @@
                 <br><br>
                 <img id="imagePreview" src="#" alt="Preview" width="100">
                 <br><br>
-                <!-- <input type="text" name="kategori" placeholder="Kategori" required> -->
-                <select name="category">
+                <input type="text" name="kategori" placeholder="Kategori" required>
+                <!-- <select name="category">
                     <option value="" disabled selected>Pilih Kategori</option>
                     <option value="TWICE">TWICE</option>
                     <option value="SEVENTEEN">SEVENTEEN</option>
                     <option value="LE SSERAFIM">LE SSERAFIM</option>
-                </select>
+                </select> -->
                 <br><br>
                 <button type="submit">Add Merch</button>
             </form>
@@ -79,15 +79,15 @@
                 <br><br>
                 <img id="imageEditPreview" src="#" alt="Preview" width="100">
                 <br><br>
-                <!-- <input type="text" name="kategori" placeholder="Kategori" required> -->
-                <select name="category">
+                <input type="text" name="kategori" placeholder="Kategori" required>
+                <!-- <select name="category">
                     <option value="" disabled selected>Pilih Kategori</option>
                     <option value="TWICE">TWICE</option>
                     <option value="SEVENTEEN">SEVENTEEN</option>
                     <option value="LE SSERAFIM">LE SSERAFIM</option>
                     <option value="NEWJEANS">NEWJEANS</option>
                     <option value="BTS">BTS</option>
-                </select>
+                </select> -->
                 <br><br>
                 <button type="submit">Update Merch</button>
             </form>

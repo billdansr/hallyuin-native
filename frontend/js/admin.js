@@ -1,21 +1,29 @@
-let url, options, data;
+let url, options;
 
 // GET
 document.addEventListener('DOMContentLoaded', () => {
+    url = 'http://localhost/hallyuin-native/backend/admin.php';
+    
+    fetch(url)
+    .then(response => response.text())
+    .then(data => {
+        data = JSON.parse(data);
+
+        alert(data['message']);
+        window.location.replace(`http://localhost/hallyuin-native/frontend/${data['redirect']}.php`)
+    })
+    .catch(error => {
+        console.error(error);
+        alert(error);
+    });
+
     url = 'http://localhost/hallyuin-native/backend/api/v1/merches.php';
     options = {
         method: 'GET',
     };
 
     fetch(url, options)
-    .then(response => {
-        if (response.ok) {
-            return response.text()
-        } else {
-            alert(response.status);
-            window.location.replace('http://localhost/hallyuin-native/frontend/login.html')
-        }
-    })
+    .then(response => response.text())
     .then(data => {
         const jsonObject = JSON.parse(data);
 

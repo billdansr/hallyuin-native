@@ -12,8 +12,8 @@
         if ($password != $passwordConfirmation) {
             http_response_code(400);
             echo json_encode([
-                "status" => "error",
-                "message" => "Password confirmation failed."
+                "message" => "Password confirmation failed.",
+                "redirect" => "register"
             ]);
             exit;
         }
@@ -30,8 +30,8 @@
         if ($numRowsUsername > 0) {
             http_response_code(400);
             echo json_encode([
-                "status" => "error",
-                "message" => "Username  already exists."
+                "message" => "Username  already exists.",
+                "redirect" => "register"
             ]);
             exit;
         }
@@ -39,8 +39,8 @@
         if ($numRowsEmail > 0) {
             http_response_code(400);
             echo json_encode([
-                "status" => "error",
-                "message" => "Email already exists."
+                "message" => "Email already exists.",
+                "redirect" => "register"
             ]);
             exit;
         }
@@ -54,12 +54,13 @@
             http_response_code(200);
             $response = [
                 "message" => "Registration success.",
-                "redirect" => "/login.php"
+                "redirect" => "login"
             ];
         } else {
             http_response_code(400);
             $response = [
-                "message" => "Registration failed."
+                "message" => "Registration failed.",
+                "redirect" => "register"
             ];
         }
 

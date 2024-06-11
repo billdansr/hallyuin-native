@@ -11,6 +11,7 @@ INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, 
     'admin'
 );
 
+-- accounts
 DELETE FROM accounts WHERE username = 'Guma Weenata';
 INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, `role`) VALUES (
     'Guma Weenata',
@@ -21,6 +22,7 @@ INSERT INTO `accounts` (`username`, `full_name`, `email`, `password`, `credit`, 
     'user'
 );
 
+-- merches
 DELETE FROM `merches`;
 INSERT INTO `merches` (`name`, `price`, `description`, `stock`, `image`, `category`) VALUES (
     'TWICE - Feel Special The 8th Mini Album',

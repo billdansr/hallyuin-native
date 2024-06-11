@@ -42,24 +42,26 @@
                 if ($account["role"] == "user") {
                     $response = [
                         "message" => "Login success.",
-                        "redirect" => "/"
+                        "redirect" => "index"
                     ];
                 } else if ($account["role"] == "admin") {
                     $response = [
                         "message" => "You are logged in as admin.",
-                        "redirect" => "/"
+                        "redirect" => "admin"
                     ];
                 }
             } else {
                 http_response_code(400);
                 $response = [
-                    "message" => "Password is incorrect."
+                    "message" => "Password is incorrect.",
+                    "redirect" => "login"
                 ];
             }
         } else {
             http_response_code(400);
             $response = [
-                "message" => "Account does not exists."
+                "message" => "Account does not exists.",
+                "redirect" => "login"
             ];
         }
 
